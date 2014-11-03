@@ -1,4 +1,7 @@
 
+[![Build Status](http://img.shields.io/travis/j-san/mdns-recorder/master.svg)](https://travis-ci.org/j-san/mdns-recorder)
+[![Version](http://img.shields.io/npm/v/mdns-recorder.svg)](https://www.npmjs.org/package/mdns-recorder)
+
 mDNS Recorder
 =============
 
