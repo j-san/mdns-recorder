@@ -1,0 +1,21 @@
+{
+  "name": "mdns-recorder",
+  "version": "0.1.0",
+  "description": "Dynamic Zero Config DNS Server",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon index.js",
+    "test": "jshint *.js"
+  },
+  "author": "Jonathan Sanchez",
+  "license": "Beer-Ware",
+  "dependencies": {
+    "express": "^4.10.1",
+    "mdns": "^2.2.1",
+    "native-dns": "^0.7.0"
+  },
+  "devDependencies": {
+    "jshint": "^2.5.8",
+    "nodemon": "^1.2.1"
+  }
+}
