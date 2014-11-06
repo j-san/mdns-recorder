@@ -1,6 +1,6 @@
 {
   "name": "mdns-recorder",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Dynamic Zero Config DNS Server",
   "main": "mdns-recorder.js",
   "bin": "mdns-recorder.js",
