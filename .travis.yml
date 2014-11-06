@@ -2,5 +2,4 @@ language: node_js
 node_js:
   - "0.11"
 before_install:
-  - sudo npm install -g node-gyp
   - sudo apt-get install libavahi-compat-libdnssd-dev libnss-mdns
