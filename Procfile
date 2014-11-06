@@ -1,1 +1,1 @@
-web: node index.js
+web: mdns-recorder.js

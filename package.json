@@ -2,10 +2,20 @@
   "name": "mdns-recorder",
   "version": "0.1.0",
   "description": "Dynamic Zero Config DNS Server",
-  "main": "index.js",
+  "main": "mdns-recorder.js",
+  "bin": "mdns-recorder.js",
   "scripts": {
-    "start": "nodemon index.js",
+    "start": "nodemon mdns-recorder.js",
     "test": "jshint *.js"
+  },
+  "keywords": [
+    "mdns",
+    "avahi",
+    "dns"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:j-san/mdns-recorder.git"
   },
   "author": "Jonathan Sanchez",
   "license": "Beer-Ware",
@@ -17,5 +27,15 @@
   "devDependencies": {
     "jshint": "^2.5.8",
     "nodemon": "^1.2.1"
+  },
+  "jshintConfig": {
+    "curly": true,
+    "eqnull": true,
+    "eqeqeq": true,
+    "undef": true,
+    "unused": true,
+    "node": true,
+    "devel": true,
+    "maxcomplexity": 5
   }
 }

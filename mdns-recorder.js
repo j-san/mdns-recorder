@@ -1,3 +1,4 @@
+#!/bin/env node
 
 var dns = require('native-dns'),
     mdns = require('mdns'),
@@ -20,10 +21,10 @@ var ifaces = os.networkInterfaces();
 
 Object.keys(ifaces).forEach(function (dev) {
     ifaces[dev].forEach(function(details) {
-        if (details.family=='IPv4' && details.internal === false) {
+        if (details.family === 'IPv4' && details.internal === false) {
             discovered[BIND_DNS_DOMAIN].A = details.address;
         }
-        if (details.family=='IPv6' && details.internal === false) {
+        if (details.family === 'IPv6' && details.internal === false) {
             discovered[BIND_DNS_DOMAIN].AAAA = details.address;
         }
     });
@@ -123,11 +124,11 @@ server.on('request', function (request, response) {
   response.send();
 });
 
-server.on('error', function (err, buff, req, res) {
+server.on('error', function (err) {
   console.error(err.stack);
 });
 
-server.on('socketError', function (err, buff, req, res) {
+server.on('socketError', function (err) {
   console.error('ERROR: Unable to dns bind server socket');
   console.error(err.stack);
 });
