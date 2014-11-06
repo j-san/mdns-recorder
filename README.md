@@ -19,8 +19,36 @@ Howto
 - Just use the web view
 
 
-Local
------
+Deploy
+------
+
+```
+# apt-get install avahi-compat-libdns_sd-devel libnss-mdns
+# or
+# yum install avahi-compat-libdns_sd-devel nss-mdns
+
+sudo npm install -g mdns-recorder foreman
+cat > ./env << 'EOF'
+WEB_PORT=80
+DNS_PORT=53
+BIND_DNS_DOMAIN=.yournet.lan
+EOF
+
+useradd mdns-recorder
+
+sudo nf export \
+    --out      /etc/init/ \
+    --app      mdns-recorder \
+    --user     mdns-recorder \
+    --env      ./env \
+    --cwd      /usr/lib/node_modules/mdns-recorder/ \
+    --procfile /usr/lib/node_modules/mdns-recorder/Procfile
+
+sudo start mdns-recorder
+```
+
+Dev
+---
 
 ```
 git clone https://github.com/j-san/mdns-recorder.git
@@ -28,25 +56,14 @@ cd mdns-recorder
 npm install
 
 npm start
-# you should open http://localhost:300/
+# you should open http://localhost:3000/
 # or query DNS
 dig @localhost foo.subnet.lan  ANY -p 3053
 
 npm test
 ```
 
-Deploy
-------
+If you don't want to deploy a DNS record, hack your resolv.conf:
 
-```
-npm install mdns-recorder
-gem install foreman
-edit mdns-recorder-env
+If you have resolveconf installed, add `name_servers=XX.XX.XX.XX` to `/etc/resolvconf.conf`.
 
-sudo foreman export upstart /etc/init/ \
-    --app=mdns-recorder \
-    --procfile= node_modules/mdns-recorder/Procfile \
-    --env=mdns-recorder-env
-
-sudo start mdns-recorder
-```

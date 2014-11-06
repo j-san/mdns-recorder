@@ -2,17 +2,35 @@
 var dns = require('native-dns'),
     mdns = require('mdns'),
     util = require('util'),
+    os = require("os"),
     express = require('express');
 
 var MDNS_DOMAIN = process.env.MDNS_DOMAIN || '.local.';
-var BIND_DNS_DOMAIN = process.env.BIND_DNS_DOMAIN || '.subnet.lan';
-var WEB_PORT = process.env.WEB_PORT || 3000;
-var DNS_PORT = process.env.DNS_PORT || 3053;
+var BIND_DNS_DOMAIN = process.env.BIND_DNS_DOMAIN || 'subnet.lan.';
+var WEB_PORT = Number(process.env.WEB_PORT) || 3000;
+var DNS_PORT = Number(process.env.DNS_PORT) || 3053;
 
 var IPV4_PATTERN = /\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}/;
 var IPV6_PATTERN = /.*:.*:.*:.*:.*:.*/;
 
 var discovered = {};
+
+discovered[BIND_DNS_DOMAIN] = {};
+var ifaces = os.networkInterfaces();
+
+Object.keys(ifaces).forEach(function (dev) {
+    ifaces[dev].forEach(function(details) {
+        if (details.family=='IPv4' && details.internal === false) {
+            discovered[BIND_DNS_DOMAIN].A = details.address;
+        }
+        if (details.family=='IPv6' && details.internal === false) {
+            discovered[BIND_DNS_DOMAIN].AAAA = details.address;
+        }
+    });
+    console.log('Self IP', dev, discovered[BIND_DNS_DOMAIN].A, discovered[BIND_DNS_DOMAIN].AAAA);
+});
+
+
 
 /* ++++++ mDNS browser ++++++ */
 
@@ -47,7 +65,7 @@ function register (service) {
         name = name.substring(0, name.length - MDNS_DOMAIN.length);
     }
 
-    name = name + BIND_DNS_DOMAIN;
+    name = name + '.' + BIND_DNS_DOMAIN;
 
     console.log("service up: ", name, addresses);
     // console.log(service);
@@ -90,14 +108,14 @@ server.on('request', function (request, response) {
                 response.answer.push(dns.A({
                     name: name,
                     address: addr.A,
-                    ttl: 600,
+                    ttl: 60,
                 }));
             }
             if (addr.AAAA) {
                 response.answer.push(dns.AAAA({
                     name: name,
                     address: addr.AAAA,
-                    ttl: 600,
+                    ttl: 60,
                 }));
             }
         }
