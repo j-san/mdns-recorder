@@ -2,4 +2,4 @@ language: node_js
 node_js:
   - "0.11"
 before_install:
-  - sudo apt-get install avahi-compat-libdns_sd-devel libnss-mdns
+  - sudo apt-get install libavahi-compat-libdnssd-dev libnss-mdns

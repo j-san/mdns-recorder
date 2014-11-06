@@ -23,7 +23,7 @@ Deploy
 ------
 
 ```
-# apt-get install avahi-compat-libdns_sd-devel libnss-mdns
+# apt-get install libavahi-compat-libdnssd-dev libnss-mdns
 # or
 # yum install avahi-compat-libdns_sd-devel nss-mdns
 
