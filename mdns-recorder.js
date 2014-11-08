@@ -6,8 +6,8 @@ var dns = require('native-dns'),
     os = require("os"),
     express = require('express');
 
-var MDNS_DOMAIN = process.env.MDNS_DOMAIN || '.local.';
-var BIND_DNS_DOMAIN = process.env.BIND_DNS_DOMAIN || 'subnet.lan.';
+var MDNS_DOMAIN = process.env.MDNS_DOMAIN || '.local';
+var BIND_DNS_DOMAIN = process.env.BIND_DNS_DOMAIN || 'subnet.lan';
 var WEB_PORT = Number(process.env.WEB_PORT) || 3000;
 var DNS_PORT = Number(process.env.DNS_PORT) || 3053;
 

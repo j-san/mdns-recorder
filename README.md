@@ -5,18 +5,21 @@
 mDNS Recorder
 =============
 
-Dynamic Zero Config DNS Server with mDNS.
+**Dynamic Zero Config DNS Server** with mDNS.
 
-Listen to local area machine, bind DNS name server and a web view. It allow you to bind names dinamicly for outsider of the subnetwork.
+- Listen for local network machines.
+- Give you a name server (DNS) and a web view.
+
+It allow you to get all the power of ZeroConf outsider of the subnetwork.
 
 
 Howto
 -----
 
+- Run mDNS Recorder inside your lan
+- Bind a name for mDNS Recorder
 - Install Avahi on servers in your lan (Mac just works, do nothing)
-- Run this software inside your lan (see "Delpoy" section)
-- Create a DNS record to point on mDNS Recorder
-- Just use the web view
+- That's it, just use the web view :)
 
 
 Deploy
@@ -31,7 +34,7 @@ sudo npm install -g mdns-recorder foreman
 cat > ./env << 'EOF'
 WEB_PORT=80
 DNS_PORT=53
-BIND_DNS_DOMAIN=.yournet.lan
+BIND_DNS_DOMAIN=yournet.lan
 EOF
 
 useradd mdns-recorder
@@ -63,7 +66,29 @@ dig @localhost foo.subnet.lan  ANY -p 3053
 npm test
 ```
 
-If you don't want to deploy a DNS record, hack your resolv.conf:
+Serve names with your mDNS DNS
+------------------------------
 
-If you have resolveconf installed, add `name_servers=XX.XX.XX.XX` to `/etc/resolvconf.conf`.
+- Deploy a DNS record NS in the parent DNS server
+- Configure your dhcp / router to also use mdns-recorder for DNS
+- Hack your resolv.conf, if you have resolveconf installed, add `name_servers_append=XX.XX.XX.XX` to `/etc/resolvconf.conf`
 
+
+Add a server to DNS index
+-------------------------
+
+Run as root on a new terget:
+
+```
+yum install avahi
+/etc/init.d/avahi-daemon start
+```
+
+Licence
+-------
+
+**THE BEER-WARE LICENSE** (Revision 42):
+
+Jonathan Sanchez wrote this software. As long as you retain this notice you
+can do whatever you want with this stuff. If we meet some day, and you think
+this stuff is worth it, you can buy me a beer in return.

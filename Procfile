@@ -1,1 +1,1 @@
-web: mdns-recorder.js
+web: ./mdns-recorder.js
