@@ -21,7 +21,7 @@
   "license": "Beer-Ware",
   "dependencies": {
     "express": "^4.10.1",
-    "mdns": "j-san/node_mdns.git#patch-1",
+    "mdns": "^2.2.1",
     "native-dns": "^0.7.0"
   },
   "devDependencies": {
